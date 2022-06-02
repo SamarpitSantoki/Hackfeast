@@ -2,9 +2,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { authRoutes } from "./AuthRoute";
 import { publicRoutes } from "./PublicRoutes";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getIsAuthenticated } from "../features/auth/authSlice";
+import { protectedRoutes } from "./ProtectedRoutes";
+import Home from "../pages/Home";
 function Routers() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
   return (
     <>
@@ -18,6 +22,11 @@ function Routers() {
           ))}
           {/* {isAuthenticated && <Navigate to={"/"} />} */}
         </Route>
+        {isAuthenticated &&
+          protectedRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.Component} />
+          ))}
+        <Route path="*" element={<Home />} />
       </Routes>
     </>
   );

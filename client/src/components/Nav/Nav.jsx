@@ -133,7 +133,7 @@ const Nav = () => {
           </form>
         </div>
         <div className="flex space-x-3 text-white text-[1.05rem] items-center">
-          <div className="flex-col items-center group space-x-2 relative">
+          <div className="hidden sm:block flex-col items-center group space-x-2 relative">
             <Link
               to="/cart"
               className="inline-flex relative items-center text-center pt-2"
@@ -164,16 +164,12 @@ const Nav = () => {
             ) : (
               <span className="duration-1000 transition-all ease-in relative group">
                 {" "}
-                <Link to="/user">
-                  <a>{user?.fname}</a>
-                </Link>
+                <Link to="/user">{user?.fname}</Link>
                 <ul className="absolute p-3 right-0 w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white group-hover:block hidden">
                   <Link to="/user">
-                    <a>
-                      <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                        Profile
-                      </li>
-                    </a>
+                    <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      Profile
+                    </li>
                   </Link>
 
                   <li
@@ -211,12 +207,32 @@ const Nav = () => {
             placeholder="Search"
             onChange={handleSearch}
           />
-          <button
+          {/* <button
             type="submit"
             className="flex items-center uppercase font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 py-2 outline outline-2 rounded outline-green-500"
           >
             Search
-          </button>
+          </button> */}
+          <div className="flex font-light text-sm h-8 text-green-300 justify-center mx-2 px-5 outline outline-2 rounded outline-green-500">
+            <Link
+              to="/cart"
+              className="inline-flex relative items-center text-center"
+            >
+              <ShoppingCartIcon className="w-6" />
+              Cart
+              <span className="ml-1">{cart?.length}</span>
+            </Link>
+            {cart?.length > 0 && (
+              <ul className="absolute p-3 right-0 w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white group-hover:block hidden">
+                <li
+                  onClick={handleClearCart}
+                  className="w-full px-4 py-2  border-gray-200 rounded-lg hover:bg-gray-200 dark:border-gray-600 cursor-pointer"
+                >
+                  Clear Cart
+                </li>
+              </ul>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -18,14 +18,14 @@ const Nav2 = ({ cats }) => {
 
   return (
     <>
-      <div className="bg-medi-100 sm:sticky bottom-0 right-0 left-0  md:px-6 h-15 flex  items-center text-lg text-white text-center z-10">
+      <div className="bg-medi-100 sm:sticky bottom-0 right-0 left-0  md:px-6 h-15 flex  items-center sm:text-lg text-white text-center z-10 overflow-hidden">
         {cats?.map((cat) => {
           return (
             <h3
               key={cat._id}
               id={cat.slug}
               onClick={getProds}
-              className="cursor-pointer px-4 py-2 w-1/5 relative hover:text-white link_line "
+              className="overflow-hidden cursor-pointer px-2 sm:px-4 py-2 w-1/5 relative hover:text-white link_line "
             >
               {cat.title}
             </h3>

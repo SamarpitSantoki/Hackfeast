@@ -15,7 +15,8 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      sessionStorage.setItem("user", user);
+      console.log("user", user);
+      sessionStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     }
   }, [isAuthenticated]);
