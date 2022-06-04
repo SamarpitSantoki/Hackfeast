@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  width: auto;
+}
 @tailwind utilities;
+
+.link_line {
+  @apply after:bottom-0 after:left-0 after:right-0 after:m-auto after:bg-white after:text-transparent after:w-0 after:content-['.'] after:h-1 after:absolute  hover:after:w-2/4 hover:after:transition-all after:ease-in-out hover:after:duration-500 hover:after:mb-1 hover:after:rounded-md;
+}
+
+#slideset2 {
+  display: flex;
+  position: relative;
+}
+#slideset2 > * {
+  position: absolute;
+  right: -100%;
+  animation: 15s autoplay2 infinite ease-in-out;
+}
+@keyframes autoplay2 {
+  0% {
+    right: -100%;
+  }
+  4% {
+    right: 0%;
+  }
+  33.33% {
+    right: 0%;
+  }
+  37.33% {
+    right: 100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+#slideset2 > *:nth-child(1) {
+  animation-delay: 0s;
+}
+#slideset2 > *:nth-child(2) {
+  animation-delay: 4.999s;
+}
+#slideset2 > *:nth-child(3) {
+  animation-delay: 9.999s;
+}
