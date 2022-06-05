@@ -5,6 +5,8 @@ import { publicRoutes } from "./PublicRoutes";
 import { useSelector, useDispatch } from "react-redux";
 import { getIsAuthenticated } from "../features/auth/authSlice";
 import { protectedRoutes } from "./ProtectedRoutes";
+import { adminRoutes } from "./AdminRoutes";
+import { doctorRoutes } from "./DoctorRoutes";
 import Home from "../pages/Home";
 function Routers() {
   const dispatch = useDispatch();
@@ -26,6 +28,12 @@ function Routers() {
           protectedRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.Component} />
           ))}
+        {adminRoutes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.Component} />
+        ))}
+        {doctorRoutes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.Component} />
+        ))}
         <Route path="*" element={<Home />} />
       </Routes>
     </>

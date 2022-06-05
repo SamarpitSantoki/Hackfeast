@@ -27,33 +27,49 @@ const MyOrders = () => {
             </p>
           </div>
         </div>
+
         <div className="mt-5 md:mt-0 md:col-span-3">
           <div className="shadow overflow-hidden sm:rounded-md bg-gray-50">
             <div className="px-4 py-5 sm:p-6">
               <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-center">
-                  <thead className="text-gray-500 font-light ">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th>Order ID</th>
-                      <th>Amount</th>
-                      <th>Date</th>
-                      <th>Status</th>
+                      <th scope="col" className="px-6 py-3">
+                        Order ID
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Amount
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Date
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Status
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {orders?.map((order) => {
                       return (
-                        <tr key={order._id}>
-                          <td>
+                        <tr
+                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                          key={order._id}
+                        >
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                          >
                             <Link
-                              to={`/order?id=${order._id}&email=${order.email}`}
+                              to={`/order/${order._id}`}
+                              state={{ order, user }}
                             >
                               {order._id}
                             </Link>
-                          </td>
-                          <td>₹{order.amount}</td>
-                          <td>{order.date}</td>
-                          <td>{order.status}</td>
+                          </th>
+                          <td className="px-6 py-4">₹{order.amount}</td>
+                          <td className="px-6 py-4">{order.date}</td>
+                          <td className="px-6 py-4">{order.status}</td>
                         </tr>
                       );
                     })}

@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
+    unique: true,
   },
   desc: {
     type: String,
@@ -24,6 +25,10 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+  },
+  orders: {
+    type: Number,
+    default: 0,
   },
 });
 

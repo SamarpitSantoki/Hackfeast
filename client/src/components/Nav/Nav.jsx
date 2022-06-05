@@ -13,7 +13,7 @@ import {
 import {
   getCart,
   getUser,
-  setCart,
+  clearCart,
   logout,
 } from "../../features/auth/authSlice";
 const Nav = () => {
@@ -92,7 +92,7 @@ const Nav = () => {
   }
 
   function handleClearCart() {
-    dispatch(setCart([]));
+    dispatch(clearCart([]));
     localStorage.removeItem("cart");
   }
   return (

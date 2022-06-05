@@ -1,76 +1,83 @@
-const express = require('express')
-const Category = require('../../models/categorySchema')
-const Product = require('../../models/productSchema')
+const express = require("express");
+const Category = require("../../models/categorySchema");
+const Product = require("../../models/productSchema");
 
-exports.saveProduct = async(req, res) => {
+exports.saveProduct = async (req, res) => {
   const product = req.body;
-
-  const { title, desc, category, price, image } = product;
-  const productData = await Product.findOne({ slug: title });
-  let active_ids = (await Product.countDocuments({})) + 1;
+  const productData = await Product.findOne({ slug: product?.slug });
   if (productData) {
-    return res.status(401).json({
-      message: "Product already exists",
-    });
+    productData.title = product.title;
+    productData.slug = product.title.replace(/\s+/g, "-").toLowerCase();
+    productData.desc = product.desc;
+    productData.category = product.category;
+    productData.price = product.price;
+    productData.order = product.order;
+    try {
+      await productData.save();
+      return res.status(200).json({
+        success: true,
+        message: "Product Updated.",
+      });
+    } catch (e) {
+      return res.status(200).json({
+        success: false,
+        message: "Product Not Updated.",
+        error: e,
+      });
+    }
   } else {
+    let slug = product.title.replace(/\s+/g, "-").toLowerCase();
     const newProduct = await new Product({
-      id: active_ids++,
-      title: title,
-      desc: desc,
-      category: category,
-      price: price,
-      image: image,
+      title: product.title,
+      slug: slug,
+      desc: product.desc,
+      category: product.category,
+      price: product.price,
     });
-    await newProduct.save();
-    const resProductData = {
-      title: newProduct.title,
-      desc: newProduct.desc,
-      category: newProduct.category,
-      price: newProduct.price,
-      image: newProduct.image,
-    };
+    try {
+      await newProduct.save();
+      return res.status(200).json({
+        success: true,
+        message: "Product Created.",
+      });
+    } catch (e) {
+      return res.status(200).json({
+        success: false,
+        message: "Product Not Created.",
+        error: e,
+      });
+    }
+  }
+};
+
+exports.deleteProdById = async (req, res) => {
+  const deletedProduct = await Product.findById(req.query.id);
+  try {
+    deletedProduct.delete();
     return res.status(200).json({
-      message: "Product created successfully",
-      product: resProductData,
       success: true,
+      message: "Product Deleted.",
+    });
+  } catch (e) {
+    return res.status(200).json({
+      success: false,
+      message: "Product not Deleted.",
+      error: e,
     });
   }
-  return res.status(400).json({
-    message: "Product not created",
-    success: false,
-  });
-}
+};
 
-exports.deleteProdById = async(req, res) => {
-    const id = req.query.id;
-
-    const product = await Product.findOne({ slug: id });
-    res.json([product]);
-}
-
-exports.getProdByCat = async(req, res) => {
-  const cate = req.query.cat.toString();
-  const result = await Product.find({ category: cate });
-  const prods = result.map((doc) => {
+exports.getAllProducts = async (req, res) => {
+  const products = await Product.find({});
+  const prods = products.map((doc) => {
     const prod = doc.toObject();
     prod._id = prod._id.toString();
     prod.image = "/images/product_images/" + prod._id + "/" + prod.image;
     return prod;
   });
-  res.status(202).json(prods);
-};
-
-exports.productSearch = async(req, res) => {
-  const serchVal = await req.query.search.toString();
-  const result = await Product.find({
-    slug: { $regex: serchVal, $options: "i" },
+  return res.status(200).json({
+    success: true,
+    message: "Products Fetched.",
+    products: prods,
   });
-  const prods = result.map((doc) => {
-    const prod = doc.toObject();
-    prod._id = prod._id.toString();
-    prod.image = "/images/product_images/" + prod._id + "/" + prod.image;
-    return prod;
-  });
-  res.status(202).json(prods);
 };
-

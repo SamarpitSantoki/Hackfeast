@@ -1,4 +1,4 @@
-const Category = require('../../models/categorySchema')
+const Category = require("../../models/categorySchema");
 
 exports.addCategory = async (req, res) => {
   const category = req.body;
@@ -35,8 +35,10 @@ exports.addCategory = async (req, res) => {
 };
 
 exports.deleteCatbyID = async (req, res) => {
-  const id = req.query.id;
-
-  const cat = await Category.findOne({ slug: id });
-  res.json(cat);
+  const deletedCategory = await Category.findById(req.query.id);
+  deletedCategory.delete();
+  return res.status(200).json({
+    success: true,
+    message: "Category Deleted",
+  });
 };

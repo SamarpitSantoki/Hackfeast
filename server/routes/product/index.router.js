@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const productController = require("../../controllers/product/product.controller");
+var bodyParser = require("body-parser");
+var jsonParser = bodyParser.json();
+router.use(jsonParser);
+router.get("/prodbycat", productController.getProdByCat);
+router.get("/search", productController.productSearch);
+router.get("/categories", productController.getCategories);
+module.exports = router;

@@ -4,7 +4,7 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   error: null,
-  isAdmin: false,
+  isAdmin: true,
   cart: [],
 };
 
@@ -26,6 +26,7 @@ export const login = createAsyncThunk("auth/login", async (data) => {
 });
 
 export const register = createAsyncThunk("auth/register", async (data) => {
+  console.log(data);
   const responce = await axios.post("/api/auth/register", data);
 
   console.log(responce.data);
@@ -95,8 +96,9 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCart, logout, addToCart } = authSlice.actions;
+export const { clearCart, logout, addToCart } = authSlice.actions;
 export default authSlice.reducer;
 export const getUser = (state) => state.auth.user;
 export const getCart = (state) => state.auth.cart;
 export const getIsAuthenticated = (state) => state.auth.isAuthenticated;
+export const getIsAdmin = (state) => state.auth.isAdmin;

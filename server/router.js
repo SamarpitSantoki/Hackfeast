@@ -1,14 +1,16 @@
-'use strict';
-const productRoutes = require('./routes/admin/product.router')
-const categoryRoutes = require('./routes/admin/category.router')
-const orderRoutes = require('./routes/admin/orders.router')
-const authRoutes = require('./routes/auth/auth.router')
-const paymentRoutes = require('./routes/payment/payment.router')
-
+"use strict";
+const bodyParser = require("body-parser");
+const Product = require("./models/productSchema");
+const authRoutes = require("./routes/auth/auth.router");
+const paymentRoutes = require("./routes/payment/payment.router");
+const adminRoutes = require("./routes/admin/index.router");
+const productRoutes = require("./routes/product/index.router");
+const userRoutes = require("./routes/user/index.router");
 module.exports = (app) => {
-    app.use('/product', productRoutes);
-    app.use('/category', categoryRoutes);
-    app.use('/order', orderRoutes);
-    app.use('/auth', authRoutes);
-    app.use('./razorpay', paymentRoutes);
-}
+  app.use("/api/admin", adminRoutes);
+  app.use("/api/auth", authRoutes);
+  app.use("/api/payment", paymentRoutes);
+  app.use("/api/products", productRoutes);
+  app.use("/api/user", userRoutes);
+  app.get("/api/prodbycat", adminRoutes);
+};
