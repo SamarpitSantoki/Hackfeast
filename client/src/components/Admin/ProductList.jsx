@@ -83,7 +83,9 @@ const ProductList = () => {
   };
 
   const hadnleDelete = async (id) => {
-    const { data } = await axios.delete(`/api/admin/products?id=${id}`);
+    const { data } = await axios.delete(
+      `https://${window.location.hostname}:1338/api/admin/products?id=${id}`
+    );
 
     if (data.success) {
       toast.success(data.message, {

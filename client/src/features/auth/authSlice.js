@@ -19,7 +19,10 @@ if (localData) {
   }
 }
 export const login = createAsyncThunk("auth/login", async (data) => {
-  const responce = await axios.post("/api/auth/login", data);
+  const responce = await axios.post(
+    `https://${window.location.hostname}:1338/api/auth/login`,
+    data
+  );
 
   console.log(responce.data);
   return responce.data.user;
@@ -27,7 +30,10 @@ export const login = createAsyncThunk("auth/login", async (data) => {
 
 export const register = createAsyncThunk("auth/register", async (data) => {
   console.log(data);
-  const responce = await axios.post("/api/auth/register", data);
+  const responce = await axios.post(
+    `https://${window.location.hostname}:1338/api/auth/register`,
+    data
+  );
 
   console.log(responce.data);
   return responce.data.user;

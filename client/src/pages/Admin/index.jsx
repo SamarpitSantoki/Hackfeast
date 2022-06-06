@@ -82,7 +82,9 @@ const Index = () => {
     return (
       <div className="grid place-content-center bg-medi-700 h-screen">
         <div className="text-medi-300 text-6xl">
-          <Link to="/">You are not authorized to view this page.</Link>
+          <Link to={`https://${window.location.hostname}:1338/`}>
+            You are not authorized to view this page.
+          </Link>
         </div>
       </div>
     );

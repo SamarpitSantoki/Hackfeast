@@ -52,10 +52,13 @@ const Cart = () => {
 
     // Make API call to the serverless API
 
-    const data = await fetch("/api/payment/razorpay", {
-      method: "POST",
-      body: JSON.stringify({ amount: total }),
-    }).then((t) => t.json());
+    const data = await fetch(
+      `https://${window.location.hostname}:1338/api/payment/razorpay`,
+      {
+        method: "POST",
+        body: JSON.stringify({ amount: total }),
+      }
+    ).then((t) => t.json());
 
     let options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
@@ -67,15 +70,18 @@ const Cart = () => {
       image: "./images/logo_medi.png",
       handler: async function (response) {
         //call order saving from here and pass the extra data as well of items in the cart
-        const { data } = await axios.post("/api/payment/confirm", {
-          cart: cart,
-          amount: total,
-          response: response,
-          email: user.email,
-          name: user.fname,
-          id: user.id,
-          address: address,
-        });
+        const { data } = await axios.post(
+          `https://${window.location.hostname}:1338/api/payment/confirm`,
+          {
+            cart: cart,
+            amount: total,
+            response: response,
+            email: user.email,
+            name: user.fname,
+            id: user.id,
+            address: address,
+          }
+        );
         if (data.success) {
           toast.success(data.message, {
             position: "bottom-center",
@@ -141,7 +147,9 @@ const Cart = () => {
     return (
       <>
         <div className="grid place-content-center space-y-2 h-screen text-6xl text-medi-200 bg-medi-700">
-          <Link to="/auth/login">You have to Login First.</Link>
+          <Link to={`https://${window.location.hostname}:1338/auth/login`}>
+            You have to Login First.
+          </Link>
           <Link
             to="/auth/register"
             className="text-xl text-medi-100 border-t ml-3 w-fit border-slate-300"

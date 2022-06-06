@@ -11,7 +11,11 @@ const initialState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const responce = await axios.get(`/api/products/search?search=`);
+    console.log("fetching products");
+    const responce = await axios.get(
+      `https://${window.location.hostname}:1338/api/products/search?search=`
+    );
+    console.log(responce.data);
     return responce.data;
   }
 );

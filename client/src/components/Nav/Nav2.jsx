@@ -10,7 +10,9 @@ const Nav2 = ({ cats }) => {
 
   async function getProds(event) {
     const cat = event.target.id;
-    const response = await fetch("/api/products/prodbycat?cat=" + cat);
+    const response = await fetch(
+      `https://${window.location.hostname}:1338/api/products/prodbycat?cat=" + cat`
+    );
     const data = await response.json();
     dispatch(setProducts(data));
     dispatch(setFilteredProducts(data));

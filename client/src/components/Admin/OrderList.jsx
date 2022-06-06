@@ -15,7 +15,9 @@ const OrderList = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   async function getOrders() {
-    const { data } = await axios.get("/api/admin/orders");
+    const { data } = await axios.get(
+      `https://${window.location.hostname}:1338/api/admin/orders`
+    );
     setOrderList(data);
   }
   useEffect(() => {
@@ -40,10 +42,13 @@ const OrderList = () => {
   };
 
   const handleStatusUpdate = async (id, status) => {
-    const { data } = await axios.post(`/api/admin/orders`, {
-      status,
-      id,
-    });
+    const { data } = await axios.post(
+      `https://${window.location.hostname}:1338/api/admin/orders`,
+      {
+        status,
+        id,
+      }
+    );
     console.log(data);
 
     if (data.success) {

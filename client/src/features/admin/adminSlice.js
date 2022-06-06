@@ -13,25 +13,33 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   "admin/getProducts",
   async (data) => {
-    const responce = await axios.get("/api/admin/products");
+    const responce = await axios.get(
+      `https://${window.location.hostname}:1338/api/admin/products`
+    );
     return responce.data.products;
   }
 );
 
 export const getUsers = createAsyncThunk("admin/getUsers", async (data) => {
-  const responce = await axios.get("/api/admin/users");
+  const responce = await axios.get(
+    `https://${window.location.hostname}:1338/api/admin/users`
+  );
   return responce.data.users;
 });
 
 export const getOrders = createAsyncThunk("admin/getOrders", async (data) => {
-  const responce = await axios.get("/api/admin/orders");
+  const responce = await axios.get(
+    `https://${window.location.hostname}:1338/api/admin/orders`
+  );
   return responce.data;
 });
 
 export const getCategories = createAsyncThunk(
   "admin/getCategories",
   async (data) => {
-    const responce = await axios.get("/api/products/categories");
+    const responce = await axios.get(
+      `https://${window.location.hostname}:1338/api/products/categories`
+    );
     return responce.data;
   }
 );
