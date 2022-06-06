@@ -101,7 +101,7 @@ const Nav = () => {
     <div className="flex flex-col m-0 w-full sticky top-0 z-50">
       <div className="bg-medi-100 z-50 w-full px-6 h-20 flex justify-between items-center">
         <div className="w-3/4 space-x-4 inline-flex justify-start items-center">
-          <Link to={`https://${window.location.hostname}:1338/`}>
+          <Link to={`/`}>
             <img
               height="48px"
               width="150px"
@@ -160,26 +160,15 @@ const Nav = () => {
             <UserIcon className="w-6 " />
             {user == null ? (
               <>
-                <Link
-                  to={`https://${window.location.hostname}:1338/auth/login`}
-                >
-                  Login
-                </Link>
-                /
-                <Link
-                  to={`https://${window.location.hostname}:1338/auth/register`}
-                >
-                  SignUp
-                </Link>
+                <Link to={`/auth/login`}>Login</Link>/
+                <Link to={`/auth/register`}>SignUp</Link>
               </>
             ) : (
               <span className="duration-1000 transition-all ease-in relative group">
                 {" "}
-                <Link to={`https://${window.location.hostname}:1338/user`}>
-                  {user?.fname}
-                </Link>
+                <Link to={`/user`}>{user?.fname}</Link>
                 <ul className="absolute p-3 right-0 w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white group-hover:block hidden">
-                  <Link to={`https://${window.location.hostname}:1338/user`}>
+                  <Link to={`/user`}>
                     <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                       Profile
                     </li>

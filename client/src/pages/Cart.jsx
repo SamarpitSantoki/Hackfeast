@@ -147,9 +147,7 @@ const Cart = () => {
     return (
       <>
         <div className="grid place-content-center space-y-2 h-screen text-6xl text-medi-200 bg-medi-700">
-          <Link to={`https://${window.location.hostname}:1338/auth/login`}>
-            You have to Login First.
-          </Link>
+          <Link to={`/auth/login`}>You have to Login First.</Link>
           <Link
             to="/auth/register"
             className="text-xl text-medi-100 border-t ml-3 w-fit border-slate-300"

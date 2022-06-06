@@ -42,7 +42,7 @@ const Register = () => {
       <div className="lg:w-1/2 xl:max-w-screen-sm">
         <div className="py-12 bg-[#e8fcfb] lg:bg-white flex justify-center lg:justify-start lg:px-12">
           <div className="cursor-pointer flex items-center">
-            <Link to={`https://${window.location.hostname}:1338/`}>
+            <Link to={`/`}>
               <div className="text-2xl text-medi-200 tracking-wide ml-2 font-semibold inline-flex items-center">
                 <img
                   src="/images/logo_medi.png"
