@@ -1,4 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  Reducer,
+  AsyncThunkPayloadCreator,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = {
   isAuthenticated: false,
@@ -7,6 +12,15 @@ const initialState = {
   isAdmin: true,
   cart: [],
 };
+
+// create interface for the state
+export interface AuthState {
+  isAuthenticated: boolean;
+  user: Object;
+  error: any;
+  isAdmin: boolean;
+  cart: any[];
+}
 
 const localData = sessionStorage.getItem("user");
 if (localData) {
@@ -18,26 +32,33 @@ if (localData) {
     initialState.cart = JSON.parse(cart);
   }
 }
-export const login = createAsyncThunk("auth/login", async (data) => {
-  const responce = await axios.post(
-    `https://${window.location.hostname}:1338/api/auth/login`,
-    data
-  );
+export const login = createAsyncThunk<string, Object>(
+  "auth/login",
+  async (data) => {
+    const responce = await axios.post(
+      `http://${window.location.hostname}:1338/api/auth/login`,
+      data
+    );
 
-  console.log(responce.data);
-  return responce.data.user;
-});
+    console.log(responce.data);
+    return responce.data.user;
+  },
+  null
+);
 
-export const register = createAsyncThunk("auth/register", async (data) => {
-  console.log(data);
-  const responce = await axios.post(
-    `https://${window.location.hostname}:1338/api/auth/register`,
-    data
-  );
+export const register = createAsyncThunk<string, Object>(
+  "auth/register",
+  async (data: Object) => {
+    console.log(data);
+    const responce = await axios.post(
+      `http://${window.location.hostname}:1338/api/auth/register`,
+      data
+    );
 
-  console.log(responce.data);
-  return responce.data.user;
-});
+    console.log(responce.data);
+    return responce.data.user;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -103,8 +124,9 @@ const authSlice = createSlice({
 });
 
 export const { clearCart, logout, addToCart } = authSlice.actions;
-export default authSlice.reducer;
+// export default authSlice.reducer;
 export const getUser = (state) => state.auth.user;
 export const getCart = (state) => state.auth.cart;
 export const getIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const getIsAdmin = (state) => state.auth.isAdmin;
+export default authSlice.reducer as Reducer<typeof initialState>;

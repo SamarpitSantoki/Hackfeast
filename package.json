@@ -1,15 +1,15 @@
 {
-  "name": "hackfest",
+  "name": "medicare-reimbursement",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"cd client && npm run start\" \"cd server && npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fs-extra": "^10.1.0",
-    "mkdir": "^0.0.2"
+    "concurrently": "^7.2.2"
   }
 }

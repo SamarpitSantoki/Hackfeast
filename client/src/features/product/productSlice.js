@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     console.log("fetching products");
     const responce = await axios.get(
-      `https://${window.location.hostname}:1338/api/products/search?search=`
+      `http://${window.location.hostname}:1338/api/products/search?search=`
     );
     console.log(responce.data);
     return responce.data;

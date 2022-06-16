@@ -46,7 +46,7 @@ const Nav = () => {
       navigate(`/search/${search}`);
     }
     const res = await axios.get(
-      `https://${window.location.hostname}:1338/api/products/search?search=${search}`
+      `http://${window.location.hostname}:1338/api/products/search?search=${search}`
     );
     dispatch(setFilteredProducts(res.data));
     console.log("working");

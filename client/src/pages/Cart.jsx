@@ -53,7 +53,7 @@ const Cart = () => {
     // Make API call to the serverless API
 
     const data = await fetch(
-      `https://${window.location.hostname}:1338/api/payment/razorpay`,
+      `http://${window.location.hostname}:1338/api/payment/razorpay`,
       {
         method: "POST",
         body: JSON.stringify({ amount: total }),
@@ -71,7 +71,7 @@ const Cart = () => {
       handler: async function (response) {
         //call order saving from here and pass the extra data as well of items in the cart
         const { data } = await axios.post(
-          `https://${window.location.hostname}:1338/api/payment/confirm`,
+          `http://${window.location.hostname}:1338/api/payment/confirm`,
           {
             cart: cart,
             amount: total,

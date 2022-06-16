@@ -16,7 +16,7 @@ const OrderList = () => {
   const [itemOffset, setItemOffset] = useState(0);
   async function getOrders() {
     const { data } = await axios.get(
-      `https://${window.location.hostname}:1338/api/admin/orders`
+      `http://${window.location.hostname}:1338/api/admin/orders`
     );
     setOrderList(data);
   }
@@ -43,7 +43,7 @@ const OrderList = () => {
 
   const handleStatusUpdate = async (id, status) => {
     const { data } = await axios.post(
-      `https://${window.location.hostname}:1338/api/admin/orders`,
+      `http://${window.location.hostname}:1338/api/admin/orders`,
       {
         status,
         id,

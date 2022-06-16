@@ -13,7 +13,7 @@ const CategoryList = () => {
   async function handleSubmit() {
     console.log(edit);
     const { data } = await axios.post(
-      `https://${window.location.hostname}:1338/api/admin/category`,
+      `http://${window.location.hostname}:1338/api/admin/category`,
       {
         ...edit,
       }
@@ -32,7 +32,7 @@ const CategoryList = () => {
   async function handleCatDelete(cat) {
     console.log(cat);
     const { data } = await axios.delete(
-      `https://${window.location.hostname}:1338/api/admin/category?id=${cat._id}`
+      `http://${window.location.hostname}:1338/api/admin/category?id=${cat._id}`
     );
     toast.success(data.message, {
       position: "bottom-center",
