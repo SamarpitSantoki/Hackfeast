@@ -2,12 +2,13 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
 import { selectUsers } from "../../features/admin/adminSlice";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useAppSelector } from "../../features/redux-hooks";
+
 const ProductList = () => {
-  const list = useSelector(selectUsers);
+  const list = useAppSelector(selectUsers);
   const [userList, setUsersList] = useState(list);
   const [edit, setEdit] = useState(null);
   const [modal, setModal] = useState(null);

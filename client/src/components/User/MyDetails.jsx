@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { getUser } from "../../features/auth/authSlice";
+import { useAppSelector } from "../../features/redux-hooks";
 const MyDetails = () => {
   //handle the field change
-  const user = useSelector(getUser);
+  const user = useAppSelector(getUser);
   const [fname, setFname] = useState(user?.fname);
   const [lname, setLname] = useState(user?.lname);
 

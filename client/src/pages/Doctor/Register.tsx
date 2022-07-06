@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {
   register,
   getUser,
   getIsAuthenticated,
 } from "../../features/auth/authSlice";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch, useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../features/redux-hooks";
 const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(getIsAuthenticated);
-  const user = useSelector(getUser);
+  const isAuthenticated = useAppSelector(getIsAuthenticated);
+  const user = useAppSelector(getUser);
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [email, setEmail] = useState("");

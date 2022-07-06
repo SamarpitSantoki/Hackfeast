@@ -7,7 +7,6 @@ import {
   UserList,
 } from "../../components/Admin";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { getIsAdmin } from "../../features/auth/authSlice";
 import {
   getProducts,
@@ -19,13 +18,14 @@ import {
   selectProducts,
   selectUsers,
 } from "../../features/admin/adminSlice";
+import { useAppDispatch, useAppSelector } from "../../features/redux-hooks";
 const Index = () => {
-  const user = useSelector(getIsAdmin);
-  const dispatch = useDispatch();
-  const prods = useSelector(selectProducts);
-  const cats = useSelector(selectCategories);
-  const users = useSelector(selectUsers);
-  const orders = useSelector(selectOrders);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getIsAdmin);
+  const prods = useAppSelector(selectProducts);
+  const cats = useAppSelector(selectCategories);
+  const users = useAppSelector(selectUsers);
+  const orders = useAppSelector(selectOrders);
 
   const { isAdmin } = user;
   const [field, setField] = useState();

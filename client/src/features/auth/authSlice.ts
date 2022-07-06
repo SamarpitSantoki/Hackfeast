@@ -2,10 +2,18 @@ import {
   createSlice,
   createAsyncThunk,
   Reducer,
-  AsyncThunkPayloadCreator,
+  PayloadAction,
 } from "@reduxjs/toolkit";
-import axios from "axios";
-const initialState = {
+import axios, { AxiosResponse } from "axios";
+
+interface User {
+  email: string;
+  fname: string;
+  lname: string;
+  id: number;
+}
+
+const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   error: null,
@@ -16,7 +24,7 @@ const initialState = {
 // create interface for the state
 export interface AuthState {
   isAuthenticated: boolean;
-  user: Object;
+  user: User;
   error: any;
   isAdmin: boolean;
   cart: any[];
@@ -34,14 +42,17 @@ if (localData) {
 }
 export const login = createAsyncThunk<string, Object>(
   "auth/login",
-  async (data) => {
-    const responce = await axios.post(
-      `http://${window.location.hostname}:1338/api/auth/login`,
-      data
-    );
+  async (data, { rejectWithValue }) => {
+    try {
+      const responce = await axios.post(
+        `http://${window.location.hostname}:1338/api/auth/login`,
+        data
+      );
 
-    console.log(responce.data);
-    return responce.data.user;
+      return responce.data.user;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
   },
   null
 );
@@ -49,13 +60,11 @@ export const login = createAsyncThunk<string, Object>(
 export const register = createAsyncThunk<string, Object>(
   "auth/register",
   async (data: Object) => {
-    console.log(data);
     const responce = await axios.post(
       `http://${window.location.hostname}:1338/api/auth/register`,
       data
     );
 
-    console.log(responce.data);
     return responce.data.user;
   }
 );
@@ -71,7 +80,6 @@ const authSlice = createSlice({
       sessionStorage.removeItem("user");
     },
     addToCart: (state, action) => {
-      console.log(action.payload);
       let cart = state.cart;
       let prod = action.payload.slug;
       if (cart.length > 0) {
@@ -100,23 +108,25 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
       state.isAuthenticated = true;
       state.user = action.payload;
       state.error = null;
-      console.log(state.user);
     });
     builder.addCase(login.rejected, (state, action) => {
       state.error = action.payload;
     });
-    builder.addCase(register.fulfilled, (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
-      state.error = null;
-      if (state.user.isAdmin) {
-        state.isAdmin = true;
+    builder.addCase(
+      register.fulfilled,
+      (state: AuthState, action: PayloadAction<any>) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null;
+        // if (state.user && state.user.isAdmin) {
+        //   state.isAdmin = true;
+        // }
       }
-    });
+    );
     builder.addCase(register.rejected, (state, action) => {
       state.error = action.payload;
     });

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../features/auth/authSlice";
+import { useAppSelector } from "../../features/redux-hooks";
 const MyOrders = () => {
-  const user = useSelector(getUser);
+  const user = useAppSelector(getUser);
   const [orders, setOrders] = useState(null);
   useEffect(() => {
     fetchOrders();

@@ -2,17 +2,17 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
 import {
   selectCategories,
   selectProducts,
 } from "../../features/admin/adminSlice";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useAppSelector } from "../../features/redux-hooks";
 
 const ProductList = () => {
-  const prods = useSelector(selectProducts);
-  const cats = useSelector(selectCategories);
+  const prods = useAppSelector(selectProducts);
+  const cats = useAppSelector(selectCategories);
   const [products, setProducts] = useState(prods);
   const [edit, setEdit] = useState(null);
   const [modal, setModal] = useState(null);

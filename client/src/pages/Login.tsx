@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { login, getUser, getIsAuthenticated } from "../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../features/redux-hooks";
+import { RootState } from "../store";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(getIsAuthenticated);
-  const isError = useSelector((state) => state.auth.isError);
-  const user = useSelector(getUser);
+  const isAuthenticated = useAppSelector(getIsAuthenticated);
+  const isError = useAppSelector((state: RootState) => state.auth.error);
+  const user = useAppSelector(getUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState();
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("user", user);
       sessionStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     }
@@ -25,14 +25,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+    if (isError) {
+      setMsg("Invalid Credentials");
+    }
   };
-  if (isError) {
-    setMsg("Invalid Credentials");
-  }
-  console.log(isAuthenticated);
-  // if (isAuthenticated) {
-  //   return <Navigate to="/" />;
-  // }
 
   return (
     <div className="lg:flex">

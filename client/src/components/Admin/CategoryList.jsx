@@ -2,11 +2,11 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
 import { selectCategories } from "../../features/admin/adminSlice";
+import { useAppSelector } from "../../features/redux-hooks";
 
 const CategoryList = () => {
-  const cats = useSelector(selectCategories);
+  const cats = useAppSelector(selectCategories);
   const [edit, setEdit] = useState(null);
   const [modal, setModal] = useState(null);
 

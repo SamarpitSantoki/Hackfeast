@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../features/product/productSlice";
 import Nav from "../components/Nav/Nav";
 import Carousel from "../components/Carousel";
 import Products from "../components/Products";
 import Nav2 from "../components/Nav/Nav2";
 import Footer from "../components/Footer/Footer";
+import { useAppDispatch } from "../features/redux-hooks";
 const cats = [
   { _id: 1, slug: "healthcare", title: "Health Care" },
   {
@@ -31,7 +31,7 @@ const cats = [
 ];
 
 function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -49,7 +49,6 @@ function Home() {
           className="w-auto top-0"
           alt="carousel"
           src="/images/a_carousel.png"
-          layout="responsive"
           width={500}
           height={60}
         />

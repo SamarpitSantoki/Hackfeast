@@ -2,7 +2,6 @@ import { ShoppingCartIcon, MenuIcon, UserIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {
   getProducts,
   getFilteredProducts,
@@ -16,16 +15,18 @@ import {
   clearCart,
   logout,
 } from "../../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../features/redux-hooks";
+
 const Nav = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   //getting data  from the redux store
-  const filterdProducts = useSelector(getFilteredProducts);
-  const products = useSelector(getProducts);
-  const searchValue = useSelector(getSearchValue);
-  const user = useSelector(getUser);
-  const cart = useSelector(getCart);
+  const filterdProducts = useAppSelector(getFilteredProducts);
+  const products = useAppSelector(getProducts);
+  const searchValue = useAppSelector(getSearchValue);
+  const user = useAppSelector(getUser);
+  const cart = useAppSelector(getCart);
   const params = useSearchParams();
 
   useEffect(() => {

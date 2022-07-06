@@ -1,12 +1,12 @@
 import Arrow from "@heroicons/react/outline/ArrowNarrowUpIcon";
-import { useSelector, useDispatch } from "react-redux";
 import {
   setFilteredProducts,
   setProducts,
 } from "../../features/product/productSlice";
+import { useAppDispatch } from "../../features/redux-hooks";
 
 const Nav2 = ({ cats }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   async function getProds(event) {
     const cat = event.target.id;

@@ -1,6 +1,22 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  Reducer,
+  PayloadAction,
+} from "@reduxjs/toolkit";
+import { ActionsFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 import axios from "axios";
-const initialState = {
+import { RootState } from "../../store";
+
+export interface ProductState {
+  products: Object[];
+  filteredProducts: Object[];
+  searchValue: String;
+  status: String;
+  error: any;
+}
+
+const initialState: ProductState = {
   products: [],
   filteredProducts: [],
   searchValue: "",
@@ -8,7 +24,7 @@ const initialState = {
   error: null,
 };
 
-export const fetchProducts = createAsyncThunk(
+export const fetchProducts = createAsyncThunk<String>(
   "products/fetchProducts",
   async () => {
     console.log("fetching products");
@@ -37,25 +53,25 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload;
-      state.filteredProducts = action.payload;
-      state.loading = false;
-      state.error = null;
-    });
+    builder.addCase(
+      fetchProducts.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.products = action.payload;
+        state.filteredProducts = action.payload;
+        state.error = null;
+      }
+    );
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.error = action.payload;
-      state.loading = false;
-    });
-    builder.addCase(fetchProducts.pending, (state, action) => {
-      state.loading = true;
     });
   },
 });
 
 export const { setFilteredProducts, setSearchValue, setProducts } =
   productSlice.actions;
-export default productSlice.reducer;
+// export default productSlice.reducer;
 export const getProducts = (state) => state.products.products;
 export const getFilteredProducts = (state) => state.products.filteredProducts;
 export const getSearchValue = (state) => state.products.searchValue;
+
+export default productSlice.reducer as Reducer<typeof initialState>;

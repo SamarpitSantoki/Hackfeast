@@ -1,6 +1,6 @@
 import User from "../pages/User";
 import Cart from "../pages/Cart";
-import Chat from "../pages/Chat";
+// import Chat from "../pages/Chat";
 import Order from "../pages/Order";
 
 export const protectedRoutes = [

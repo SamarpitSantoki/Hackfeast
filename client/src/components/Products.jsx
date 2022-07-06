@@ -1,10 +1,10 @@
 import { getFilteredProducts } from "../features/product/productSlice";
-import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../features/redux-hooks";
 
 const Products = ({}) => {
-  const dispatch = useDispatch();
-  const prods = useSelector(getFilteredProducts);
+  const dispatch = useAppDispatch();
+  const prods = useAppSelector(getFilteredProducts);
   return (
     <>
       {prods.map((prod) => {

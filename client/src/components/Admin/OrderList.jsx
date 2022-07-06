@@ -2,14 +2,14 @@ import { TrashIcon, StatusOnlineIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
 import { selectOrders } from "../../features/admin/adminSlice";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../features/redux-hooks";
 
 const OrderList = () => {
-  const list = useSelector(selectOrders);
+  const list = useAppSelector(selectOrders);
   const [orderList, setOrderList] = useState(list);
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
