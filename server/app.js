@@ -7,7 +7,8 @@ const cors = require("cors");
 //intialize app
 const app = express();
 app.use(cors());
-dotenv.config({ path: "./.env" });
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+// dotenv.config({ path: "./.env" });
 const PORT = process.env.PORT || 3000;
 
 app.use(
